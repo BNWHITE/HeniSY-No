@@ -2,863 +2,327 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <!-- CLÉ 1: La balise Viewport est essentielle pour le Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Sans Media Queries - AVANT</title>
+    <title>Mon Projet Cool et Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
+        :root {
+            --color-primary: #005a70; /* Bleu-Vert Profond */
+            --color-accent: #e8c044;  /* Or/Jaune */
+            --color-text: #333333;
+            --color-background: #f4f7f9;
+            --color-white: #ffffff;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            /* AUCUNE ADAPTATION MOBILE - TOUT EST FIXE */
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            line-height: 1.6;
+            padding-top: 60px; /* Espace pour le header fixe */
+        }
+        h1, h2, h3 {
+            color: var(--color-primary);
+            font-weight: 700;
         }
 
-        /* Navigation FIXE - Ne s'adapte PAS */
-        .navbar {
+        .header {
+            background-color: var(--color-white);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
             position: fixed;
-            top: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.95);
+            top: 0;
+            left: 0;
             z-index: 1000;
-            padding: 20px 0;
-            border-bottom: 2px solid #6366f1;
         }
-
         .nav-container {
-            width: 1200px; /* FIXE - pas de max-width */
-            margin: 0 auto;
-            padding: 0 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
         }
-
         .logo {
-            font-size: 28px; /* FIXE */
-            font-weight: bold;
-            color: #6366f1;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--color-primary);
         }
-
         .nav-links {
-            display: flex;
-            gap: 40px; /* TROP GRAND pour mobile */
             list-style: none;
+            display: flex;
         }
-
         .nav-links a {
-            color: white;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 18px; /* FIXE */
+            color: var(--color-text);
+            margin-left: 25px;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
-
-        /* Hero Section - TAILLE FIXE */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 100px 50px;
+        .nav-links a:hover {
+            color: var(--color-accent);
         }
-
-        .hero h1 {
-            font-size: 80px; /* ÉNORME - illisible sur mobile */
-            color: white;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        .menu-toggle {
+            display: none; /* Caché par défaut sur grand écran */
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--color-primary);
         }
-
-        .hero p {
-            font-size: 32px; /* TROP GRAND */
-            color: white;
-            margin-bottom: 40px;
-        }
-
-        .hero-authors {
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-            padding: 20px 40px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50px;
+        
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s;
             display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #004655; /* Version légèrement plus foncée */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Section avec LARGEUR FIXE */
         section {
-            padding: 100px 50px;
-            width: 1200px; /* FIXE - débordera sur mobile */
+            padding: 80px 20px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            margin-bottom: 50px;
-            border-radius: 20px;
-        }
-
-        .section-title {
-            font-size: 48px; /* FIXE */
-            color: #6366f1;
-            margin-bottom: 50px;
             text-align: center;
         }
-
-        /* Grid RIGIDE - Ne s'adapte PAS */
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* TOUJOURS 3 colonnes */
-            gap: 40px;
-            margin-top: 50px;
+        .container {
+            max-width: 100%;
         }
 
-        .demo-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            min-width: 300px; /* FIXE */
+       .hero {
+            background-color: var(--color-white);
+            padding: 100px 20px 80px;
+            border-bottom: 5px solid var(--color-accent);
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            color: var(--color-text);
+        }
+        .hero h1 span {
+            color: var(--color-accent);
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #555555;
+        }
+        .features-grid {
+            display: flex; /* Utilisé pour le layout, mais pas encore responsive ici */
+            gap: 30px;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background-color: var(--color-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            flex: 1; /* Sans MQ, les cartes restent en ligne */
+            min-width: 300px;
+        }
+        .feature-card i {
+            font-size: 3em;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: var(--color-primary);
         }
 
-        .demo-card h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .demo-card p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        /* Texte en colonnes FIXES */
-        .text-content {
-            column-count: 2; /* TOUJOURS 2 colonnes - illisible sur mobile */
-            column-gap: 50px;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #333;
-        }
-
-        /* Tableau avec largeur FIXE */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 40px 0;
-            font-size: 18px; /* FIXE */
-        }
-
-        th, td {
-            padding: 20px;
-            text-align: left;
-            border-bottom: 2px solid #ddd;
-        }
-
-        th {
-            background: #6366f1;
-            color: white;
-            font-size: 20px;
-        }
-
-        /* Bouton ÉNORME */
-        .cta-button {
-            display: inline-block;
-            padding: 30px 60px; /* ÉNORME */
-            background: #6366f1;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 24px; /* TROP GRAND */
-            margin: 40px 0;
-        }
-
-        /* Image FIXE - débordera */
-        .fixed-image {
-            width: 800px; /* FIXE - plus large que l'écran mobile */
-            height: 500px;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            margin: 40px auto;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            color: white;
-            font-weight: bold;
-        }
-
-        /* Footer FIXE */
-        footer {
-            background: #0f172a;
-            color: white;
-            padding: 60px 50px;
+        .footer {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 40px 20px;
             text-align: center;
-            width: 1200px; /* FIXE */
-            margin: 0 auto;
-            border-radius: 20px;
-            margin-bottom: 50px;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 0.9em;
         }
 
-        footer h3 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        footer p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        /* Badge d'avertissement */
-        .warning-badge {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #ef4444;
-            color: white;
-            padding: 20px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-            z-index: 999;
-            animation: shake 0.5s infinite;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .warning-badge::before {
-            content: '⚠️ AUCUNE MEDIA QUERY !';
-        }
-
-        /* Message d'alerte en haut */
-        .alert-banner {
-            background: #ef4444;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1001;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
-        }
+        /* ========================================================== */
+        /* !!! DÉBUT DU BLOC MEDIA QUERIES (MIS EN COMMENTAIRE) !!! */
+        /* Décommenter cette section pour activer la magie du Responsive Design */
+        /* ========================================================== */
+        <!-- 
         @media (max-width: 768px) {
-            .breakpoint-badge::before {
-                content: '📱 Mobile';
+            
+            /* 1. NAVIGATION MOBILE */
+            .nav-container {
+                padding: 15px 20px;
             }
-
+            .nav-links {
+                display: none; /* Cache la navigation par défaut */
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Sous le header */
+                left: 0;
+                width: 100%;
+                background-color: var(--color-white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #eee;
+                z-index: 999;
+            }
+            /* Classe ajoutée par JS pour afficher le menu */
+            .nav-links.active {
+                display: flex; 
+            }
+            .nav-links li {
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            .nav-links a {
+                margin: 0;
+                display: block;
+                padding: 10px 20px;
+            }
             .menu-toggle {
-                display: flex;
+                display: block; /* Affiche l'icône du menu */
             }
-        /* AUCUNE MEDIA QUERY ICI - C'EST VOLONTAIRE ! */
-        /* Le site est CASSÉ sur mobile pour montrer l'importance des media queries */
+
+            /* 2. HERO MOBILE */
+            .hero {
+                padding: 80px 20px 60px;
+            }
+            .hero h1 {
+                font-size: 2.5em; /* Réduction de la taille du titre */
+            }
+            .hero p {
+                font-size: 1em;
+            }
+
+            /* 3. GRILLE DE CARACTÉRISTIQUES (Passage en colonnes) */
+            .features-grid {
+                flex-direction: column; /* Les cartes passent les unes sous les autres */
+            }
+            .feature-card {
+                margin-bottom: 20px;
+            }
+
+            /* 4. ESPACEMENT GLOBAL */
+            section {
+                padding: 60px 20px;
+            }
+        }
+        -->
+        /* ========================================================== */
+        /* !!! FIN DU BLOC MEDIA QUERIES (MIS EN COMMENTAIRE) !!! */
+        /* ========================================================== */
+        
     </style>
 </head>
 <body>
-    <!-- Alert Banner -->
-    <div class="alert-banner">
-        🚫 Ce site N'A PAS de Media Queries - Regardez comme c'est horrible sur mobile ! 📱💔
-    </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Header -->
+    <header class="header">
         <div class="nav-container">
-            <div class="logo">❌ Sans Media Queries</div>
-            <ul class="nav-links">
-                <li><a href="#probleme">Le Problème</a></li>
-                <li><a href="#catastrophe">La Catastrophe</a></li>
-                <li><a href="#solution">La Solution</a></li>
+            <div class="logo">Projet Cool.</div>
+            
+            <!-- Lien de navigation -->
+            <ul class="nav-links" id="navMenu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn-primary" style="padding: 8px 15px;">Démarrer</a></li>
             </ul>
+            
+            <!-- Bouton burger (affiché uniquement sur mobile par les Media Queries) -->
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div>
-            <h1>💔 SITE CASSÉ</h1>
-            <p>Sans Media Queries = Cauchemar Mobile</p>
-            <div class="hero-authors">Seydi & Adel - Démonstration "AVANT"</div>
+    <!-- Section 1: Hero (Accueil) -->
+    <section class="hero" id="accueil">
+        <div class="container">
+            <h1>Bienvenue dans le <span>Futur du Web</span>.</h1>
+            <p>Notre plateforme moderne est conçue pour l'efficacité, la performance et un design impeccable.</p>
+            <a href="#" class="btn-primary">Découvrir les solutions</a>
         </div>
     </section>
 
-    <!-- Section Problème -->
-    <section id="probleme">
-        <h2 class="section-title">😱 Le Problème</h2>
-        <div class="text-content">
-            <p>
-                Vous voyez ce site ? Il est HORRIBLE sur mobile, n'est-ce pas ? 
-                Le texte est minuscule, vous devez zoomer pour lire, scroller horizontalement... 
-                C'est exactement ce qui se passe quand on ne utilise PAS de media queries !
-            </p>
-            <p>
-                En 2025, plus de 63% du trafic web vient des mobiles. Imaginez perdre 
-                plus de la moitié de vos visiteurs simplement parce que votre site 
-                n'est pas responsive. C'est un désastre commercial !
-            </p>
-            <p>
-                Les utilisateurs n'ont AUCUNE patience pour les sites non-responsives. 
-                57% d'entre eux ne recommanderont jamais un site mal optimisé pour mobile. 
-                Et 88% ont moins de chances de revenir après une mauvaise expérience.
-            </p>
-            <p>
-                Ce site que vous voyez maintenant utilise des tailles fixes : 
-                1200px de largeur, textes de 80px, boutons énormes... Tout est conçu 
-                pour un écran d'ordinateur de bureau. Sur mobile, c'est l'enfer !
-            </p>
+    <!-- Section 2: Caractéristiques -->
+    <section id="fonctionnalites">
+        <h2>Des Fonctionnalités Conçues pour Vous</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3>Design Élégant</h3>
+                <p>Une interface utilisateur épurée et professionnelle qui engage vos visiteurs dès le premier clic.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Sécurité Maximale</h3>
+                <p>Protégez vos données avec nos protocoles de sécurité de pointe et une architecture robuste.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-gauge-high"></i>
+                <h3>Performance Optimale</h3>
+                <p>Des temps de chargement ultra-rapides, garantissant une expérience fluide sur tous les appareils.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Section Catastrophe -->
-    <section id="catastrophe">
-        <h2 class="section-title">🔥 La Catastrophe Visuelle</h2>
-        
-        <div class="demo-grid">
-            <div class="demo-card">
-                <h3>📱 Texte Illisible</h3>
-                <p>Les textes de 80px sont ÉNORMES sur desktop mais minuscules sur mobile. Impossible à lire sans zoomer !</p>
-            </div>
-            <div class="demo-card">
-                <h3>↔️ Scroll Horizontal</h3>
-                <p>La largeur fixe de 1200px force l'utilisateur à scroller horizontalement. C'est frustrant et amateur !</p>
-            </div>
-            <div class="demo-card">
-                <h3>🎨 Layout Cassé</h3>
-                <p>Les grilles à 3 colonnes sont écrasées, les éléments se chevauchent, c'est le chaos total !</p>
-            </div>
-        </div>
-
-        <div class="fixed-image">
-            Image 800px de large<br>
-            (Déborde sur mobile !)
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Problème</th>
-                    <th>Impact</th>
-                    <th>Conséquence</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Pas de media queries</td>
-                    <td>Site illisible</td>
-                    <td>Utilisateurs partent</td>
-                </tr>
-                <tr>
-                    <td>Tailles fixes (px)</td>
-                    <td>Débordement d'écran</td>
-                    <td>Scroll horizontal</td>
-                </tr>
-                <tr>
-                    <td>Grid rigide</td>
-                    <td>Layout écrasé</td>
-                    <td>Contenu inaccessible</td>
-                </tr>
-                <tr>
-                    <td>Navigation non-adaptée</td>
-                    <td>Menu inutilisable</td>
-                    <td>Navigation impossible</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <a href="#solution" class="cta-button">Il FAUT une solution ! 😤</a>
-    </section>
-
-    <!-- Section Solution -->
-    <section id="solution">
-        <h2 class="section-title">✅ La Solution : Media Queries !</h2>
-        
-        <div style="background: #e8f5e9; padding: 40px; border-radius: 15px; border-left: 5px solid #4caf50; margin: 40px 0;">
-            <h3 style="color: #2e7d32; font-size: 32px; margin-bottom: 20px;">
-                🎯 Maintenant, scannez le DEUXIÈME QR Code !
-            </h3>
-            <p style="color: #1b5e20; font-size: 20px; line-height: 1.8;">
-                Vous allez voir la MÊME présentation, mais cette fois avec des media queries. 
-                La différence va vous BLUFFER ! 🚀
-            </p>
-            <p style="color: #1b5e20; font-size: 20px; margin-top: 20px;">
-                Sur le deuxième site, tout s'adaptera parfaitement à votre écran : 
-                textes lisibles, navigation fluide, layout optimisé. C'est ça, la MAGIE 
-                des media queries ! ✨
-            </p>
-        </div>
-
-        <div style="background: #fff3e0; padding: 40px; border-radius: 15px; border-left: 5px solid #ff9800; margin: 40px 0;">
-            <h3 style="color: #e65100; font-size: 28px; margin-bottom: 20px;">
-                💡 Ce que vous allez découvrir :
-            </h3>
-            <ul style="color: #bf360c; font-size: 18px; line-height: 2; list-style-position: inside;">
-                <li>✅ Navigation avec menu burger sur mobile</li>
-                <li>✅ Textes parfaitement dimensionnés</li>
-                <li>✅ Grilles qui s'adaptent (3 → 2 → 1 colonnes)</li>
-                <li>✅ Images responsives</li>
-                <li>✅ Plus de scroll horizontal</li>
-                <li>✅ Expérience utilisateur optimale</li>
-            </ul>
-        </div>
+    <!-- Section 3: Appel à l'action -->
+    <section id="contact" style="background-color: var(--color-white); border-top: 1px solid #eee;">
+        <h2>Prêt à Passer au Niveau Supérieur ?</h2>
+        <p>Contactez-nous pour une démonstration personnalisée de nos services.</p>
+        <a href="#" class="btn-primary">Nous Contacter Maintenant</a>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <h3>🎓 Leçon Apprise</h3>
-        <p>Les media queries ne sont pas optionnelles en 2025.</p>
-        <p>Elles sont ESSENTIELLES pour un web moderne et accessible.</p>
-        <p style="margin-top: 30px; font-size: 20px; color: #6366f1;">
-            <strong>Seydi & Adel</strong>
-        </p>
-        <p>École d'Ingénieurs Informatique - 1ère Année</p>
+    <footer class="footer">
+        <p>&copy; 2024 Mon Projet Cool. Tous droits réservés.</p>
     </footer>
 
-    <!-- Warning Badge -->
-    <div class="warning-badge"></div>
-
+    <!-- Script JS pour la navigation mobile (Burger Menu) -->
     <script>
-        // Message console
-        console.log('%c🚫 Ce site est VOLONTAIREMENT cassé !', 'font-size: 20px; color: #ef4444; font-weight: bold;');
-        console.log('%cPas de media queries = Cauchemar mobile', 'font-size: 14px; color: #f97316;');
-        console.log('%cScannez le 2ème QR Code pour voir la différence !', 'font-size: 14px; color: #10b981;');
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Sans Media Queries - AVANT</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            /* AUCUNE ADAPTATION MOBILE - TOUT EST FIXE */
-        }
-
-        /* Navigation FIXE - Ne s'adapte PAS */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            z-index: 1000;
-            padding: 20px 0;
-            border-bottom: 2px solid #6366f1;
-        }
-
-        .nav-container {
-            width: 1200px; /* FIXE - pas de max-width */
-            margin: 0 auto;
-            padding: 0 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px; /* FIXE */
-            font-weight: bold;
-            color: #6366f1;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px; /* TROP GRAND pour mobile */
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 18px; /* FIXE */
-        }
-
-        /* Hero Section - TAILLE FIXE */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 100px 50px;
-        }
-
-        .hero h1 {
-            font-size: 80px; /* ÉNORME - illisible sur mobile */
-            color: white;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 32px; /* TROP GRAND */
-            color: white;
-            margin-bottom: 40px;
-        }
-
-        .hero-authors {
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-            padding: 20px 40px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50px;
-            display: inline-block;
-        }
-
-        /* Section avec LARGEUR FIXE */
-        section {
-            padding: 100px 50px;
-            width: 1200px; /* FIXE - débordera sur mobile */
-            margin: 0 auto;
-            background: white;
-            margin-bottom: 50px;
-            border-radius: 20px;
-        }
-
-        .section-title {
-            font-size: 48px; /* FIXE */
-            color: #6366f1;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        /* Grid RIGIDE - Ne s'adapte PAS */
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* TOUJOURS 3 colonnes */
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .demo-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            min-width: 300px; /* FIXE */
-        }
-
-        .demo-card h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .demo-card p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        /* Texte en colonnes FIXES */
-        .text-content {
-            column-count: 2; /* TOUJOURS 2 colonnes - illisible sur mobile */
-            column-gap: 50px;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #333;
-        }
-
-        /* Tableau avec largeur FIXE */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 40px 0;
-            font-size: 18px; /* FIXE */
-        }
-
-        th, td {
-            padding: 20px;
-            text-align: left;
-            border-bottom: 2px solid #ddd;
-        }
-
-        th {
-            background: #6366f1;
-            color: white;
-            font-size: 20px;
-        }
-
-        /* Bouton ÉNORME */
-        .cta-button {
-            display: inline-block;
-            padding: 30px 60px; /* ÉNORME */
-            background: #6366f1;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 24px; /* TROP GRAND */
-            margin: 40px 0;
-        }
-
-        /* Image FIXE - débordera */
-        .fixed-image {
-            width: 800px; /* FIXE - plus large que l'écran mobile */
-            height: 500px;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            margin: 40px auto;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            color: white;
-            font-weight: bold;
-        }
-
-        /* Footer FIXE */
-        footer {
-            background: #0f172a;
-            color: white;
-            padding: 60px 50px;
-            text-align: center;
-            width: 1200px; /* FIXE */
-            margin: 0 auto;
-            border-radius: 20px;
-            margin-bottom: 50px;
-        }
-
-        footer h3 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        footer p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
-        /* Badge d'avertissement */
-        .warning-badge {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #ef4444;
-            color: white;
-            padding: 20px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-            z-index: 999;
-            animation: shake 0.5s infinite;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .warning-badge::before {
-            content: '⚠️ AUCUNE MEDIA QUERY !';
-        }
-
-        /* Message d'alerte en haut */
-        .alert-banner {
-            background: #ef4444;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1001;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
-        }
-
-        /* AUCUNE MEDIA QUERY ICI - C'EST VOLONTAIRE ! */
-        /* Le site est CASSÉ sur mobile pour montrer l'importance des media queries */
-    </style>
-</head>
-<body>
-    <!-- Alert Banner -->
-    <div class="alert-banner">
-        🚫 Ce site N'A PAS de Media Queries - Regardez comme c'est horrible sur mobile ! 📱💔
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">❌ Sans Media Queries</div>
-            <ul class="nav-links">
-                <li><a href="#probleme">Le Problème</a></li>
-                <li><a href="#catastrophe">La Catastrophe</a></li>
-                <li><a href="#solution">La Solution</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div>
-            <h1>💔 SITE CASSÉ</h1>
-            <p>Sans Media Queries = Cauchemar Mobile</p>
-            <div class="hero-authors">Seydi & Adel - Démonstration "AVANT"</div>
-        </div>
-    </section>
-
-    <!-- Section Problème -->
-    <section id="probleme">
-        <h2 class="section-title">😱 Le Problème</h2>
-        <div class="text-content">
-            <p>
-                Vous voyez ce site ? Il est HORRIBLE sur mobile, n'est-ce pas ? 
-                Le texte est minuscule, vous devez zoomer pour lire, scroller horizontalement... 
-                C'est exactement ce qui se passe quand on ne utilise PAS de media queries !
-            </p>
-            <p>
-                En 2025, plus de 63% du trafic web vient des mobiles. Imaginez perdre 
-                plus de la moitié de vos visiteurs simplement parce que votre site 
-                n'est pas responsive. C'est un désastre commercial !
-            </p>
-            <p>
-                Les utilisateurs n'ont AUCUNE patience pour les sites non-responsives. 
-                57% d'entre eux ne recommanderont jamais un site mal optimisé pour mobile. 
-                Et 88% ont moins de chances de revenir après une mauvaise expérience.
-            </p>
-            <p>
-                Ce site que vous voyez maintenant utilise des tailles fixes : 
-                1200px de largeur, textes de 80px, boutons énormes... Tout est conçu 
-                pour un écran d'ordinateur de bureau. Sur mobile, c'est l'enfer !
-            </p>
-        </div>
-    </section>
-
-    <!-- Section Catastrophe -->
-    <section id="catastrophe">
-        <h2 class="section-title">🔥 La Catastrophe Visuelle</h2>
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            var navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        });
         
-        <div class="demo-grid">
-            <div class="demo-card">
-                <h3>📱 Texte Illisible</h3>
-                <p>Les textes de 80px sont ÉNORMES sur desktop mais minuscules sur mobile. Impossible à lire sans zoomer !</p>
-            </div>
-            <div class="demo-card">
-                <h3>↔️ Scroll Horizontal</h3>
-                <p>La largeur fixe de 1200px force l'utilisateur à scroller horizontalement. C'est frustrant et amateur !</p>
-            </div>
-            <div class="demo-card">
-                <h3>🎨 Layout Cassé</h3>
-                <p>Les grilles à 3 colonnes sont écrasées, les éléments se chevauchent, c'est le chaos total !</p>
-            </div>
-        </div>
+        // Ferme le menu après un clic de navigation sur mobile
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                var navMenu = document.getElementById('navMenu');
+                // Seulement si le menu est actif, on le ferme
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
 
-        <div class="fixed-image">
-            Image 800px de large<br>
-            (Déborde sur mobile !)
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Problème</th>
-                    <th>Impact</th>
-                    <th>Conséquence</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Pas de media queries</td>
-                    <td>Site illisible</td>
-                    <td>Utilisateurs partent</td>
-                </tr>
-                <tr>
-                    <td>Tailles fixes (px)</td>
-                    <td>Débordement d'écran</td>
-                    <td>Scroll horizontal</td>
-                </tr>
-                <tr>
-                    <td>Grid rigide</td>
-                    <td>Layout écrasé</td>
-                    <td>Contenu inaccessible</td>
-                </tr>
-                <tr>
-                    <td>Navigation non-adaptée</td>
-                    <td>Menu inutilisable</td>
-                    <td>Navigation impossible</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <a href="#solution" class="cta-button">Il FAUT une solution ! 😤</a>
-    </section>
-
-    <!-- Section Solution -->
-    <section id="solution">
-        <h2 class="section-title">✅ La Solution : Media Queries !</h2>
+        // Fonction pour vérifier l'état des Media Queries (désactivée par les commentaires)
+        function checkResponsiveState() {
+            const mqBlock = document.querySelector('style').textContent;
+            if (mqBlock.includes('/* ========================================================== */')) {
+                console.log("Media Queries sont actuellement commentées. Le site est non-responsive.");
+                console.log("Veuillez décommenter le bloc '!!! DÉBUT DU BLOC MEDIA QUERIES' dans le CSS pour activer la réactivité.");
+            }
+        }
         
-        <div style="background: #e8f5e9; padding: 40px; border-radius: 15px; border-left: 5px solid #4caf50; margin: 40px 0;">
-            <h3 style="color: #2e7d32; font-size: 32px; margin-bottom: 20px;">
-                🎯 Maintenant, scannez le DEUXIÈME QR Code !
-            </h3>
-            <p style="color: #1b5e20; font-size: 20px; line-height: 1.8;">
-                Vous allez voir la MÊME présentation, mais cette fois avec des media queries. 
-                La différence va vous BLUFFER ! 🚀
-            </p>
-            <p style="color: #1b5e20; font-size: 20px; margin-top: 20px;">
-                Sur le deuxième site, tout s'adaptera parfaitement à votre écran : 
-                textes lisibles, navigation fluide, layout optimisé. C'est ça, la MAGIE 
-                des media queries ! ✨
-            </p>
-        </div>
-
-        <div style="background: #fff3e0; padding: 40px; border-radius: 15px; border-left: 5px solid #ff9800; margin: 40px 0;">
-            <h3 style="color: #e65100; font-size: 28px; margin-bottom: 20px;">
-                💡 Ce que vous allez découvrir :
-            </h3>
-            <ul style="color: #bf360c; font-size: 18px; line-height: 2; list-style-position: inside;">
-                <li>✅ Navigation avec menu burger sur mobile</li>
-                <li>✅ Textes parfaitement dimensionnés</li>
-                <li>✅ Grilles qui s'adaptent (3 → 2 → 1 colonnes)</li>
-                <li>✅ Images responsives</li>
-                <li>✅ Plus de scroll horizontal</li>
-                <li>✅ Expérience utilisateur optimale</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <h3>🎓 Leçon Apprise</h3>
-        <p>Les media queries ne sont pas optionnelles en 2025.</p>
-        <p>Elles sont ESSENTIELLES pour un web moderne et accessible.</p>
-        <p style="margin-top: 30px; font-size: 20px; color: #6366f1;">
-            <strong>Seydi & Adel</strong>
-        </p>
-        <p>École d'Ingénieurs Informatique - 1ère Année</p>
-    </footer>
-
-    <!-- Warning Badge -->
-    <div class="warning-badge"></div>
-
-    <script>
-        // Message console
-        console.log('%c🚫 Ce site est VOLONTAIREMENT cassé !', 'font-size: 20px; color: #ef4444; font-weight: bold;');
-        console.log('%cPas de media queries = Cauchemar mobile', 'font-size: 14px; color: #f97316;');
-        console.log('%cScannez le 2ème QR Code pour voir la différence !', 'font-size: 14px; color: #10b981;');
+        window.onload = checkResponsiveState;
     </script>
 </body>
 </html>
