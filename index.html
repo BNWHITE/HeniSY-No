@@ -170,6 +170,69 @@
         /* !!! BLOC DE MEDIA QUERIES : LA SOLUTION RESPONSIVE !!! */
         /* Ceci s'active lorsque la largeur de l'écran est de 768px ou moins. */
         /* ========================================================== */
+        @media (max-width: 768px) {
+            
+            /* 1. NAVIGATION MOBILE */
+            .nav-container {
+                padding: 15px 20px;
+            }
+            .nav-links {
+                /* Met les liens en colonne et les cache */
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Sous le header */
+                left: 0;
+                width: 100%;
+                background-color: var(--color-white);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #eee;
+                z-index: 999;
+            }
+            /* La classe 'active' est ajoutée/retirée par le JavaScript du bouton burger */
+            .nav-links.active {
+                display: flex; 
+            }
+            .nav-links li {
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            .nav-links a {
+                margin: 0;
+                display: block;
+                padding: 10px 20px;
+            }
+            .menu-toggle {
+                /* Affiche l'icône du menu burger (cachée par défaut) */
+                display: block; 
+            }
+        
+            /* 2. HERO MOBILE */
+            .hero {
+                padding: 80px 20px 60px;
+            }
+            .hero h1 {
+                font-size: 2.5em; /* Réduction de la taille du titre */
+            }
+            .hero p {
+                font-size: 1em;
+            }
+        
+            /* 3. GRILLE DE CARACTÉRISTIQUES (Passage en colonnes - Ceci corrige le scroll!) */
+            .features-grid {
+                flex-direction: column; /* Les cartes passent les unes sous les autres */
+            }
+            .feature-card {
+                min-width: unset; /* Retire la largeur minimale fixe */
+                margin-bottom: 20px;
+            }
+        
+            /* 4. ESPACEMENT GLOBAL */
+            section {
+                padding: 60px 20px;
+            }
+        }
         
         /* ---------------------------------- */
         /* 6. FOOTER */
