@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <!-- CLÉ 1: La balise Viewport est essentielle pour le Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Projet Cool et Pro</title>
+    <title>Mon Projet Non-Responsive</title>
+    <!-- Importation de police moderne -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
+        /* Définition des variables de couleurs inspirées ISEP/Professionnel */
         :root {
-            --color-primary: #005a70; /* Bleu-Vert Profond */
-            --color-accent: #e8c044;  /* Or/Jaune */
+            --color-primary: #005a70; /* Bleu-Vert Profond (ISEP) */
+            --color-accent: #e8c044;  /* Or/Jaune (ISEP) */
             --color-text: #333333;
             --color-background: #f4f7f9;
             --color-white: #ffffff;
         }
 
+        /* Styles de base et typographie */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -34,6 +37,9 @@
             font-weight: 700;
         }
 
+        /* ---------------------------------- */
+        /* 1. HEADER (Navigation) */
+        /* ---------------------------------- */
         .header {
             background-color: var(--color-white);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -70,13 +76,17 @@
         .nav-links a:hover {
             color: var(--color-accent);
         }
+        /* ATTENTION: Le .menu-toggle n'est jamais affiché car il n'y a pas de Media Query */
         .menu-toggle {
-            display: none; /* Caché par défaut sur grand écran */
+            display: none; 
             font-size: 1.5em;
             cursor: pointer;
             color: var(--color-primary);
         }
         
+        /* ---------------------------------- */
+        /* 2. BOUTONS & ÉLÉMENTS INTERACTIFS */
+        /* ---------------------------------- */
         .btn-primary {
             background-color: var(--color-primary);
             color: var(--color-white);
@@ -95,6 +105,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* ---------------------------------- */
+        /* 3. SECTIONS GÉNÉRALES */
+        /* ---------------------------------- */
         section {
             padding: 80px 20px;
             max-width: 1200px;
@@ -105,7 +118,10 @@
             max-width: 100%;
         }
 
-       .hero {
+        /* ---------------------------------- */
+        /* 4. SECTION HERO (Accueil) */
+        /* ---------------------------------- */
+        .hero {
             background-color: var(--color-white);
             padding: 100px 20px 80px;
             border-bottom: 5px solid var(--color-accent);
@@ -123,8 +139,12 @@
             margin-bottom: 30px;
             color: #555555;
         }
+
+        /* ------------------------------------------------------------------------ */
+        /* 5. SECTION CARACTÉRISTIQUES (Features) - Ceci cause le problème de scroll */
+        /* ------------------------------------------------------------------------ */
         .features-grid {
-            display: flex; /* Utilisé pour le layout, mais pas encore responsive ici */
+            display: flex; 
             gap: 30px;
             justify-content: space-between;
             margin-top: 40px;
@@ -134,8 +154,8 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            flex: 1; /* Sans MQ, les cartes restent en ligne */
-            min-width: 300px;
+            flex: 1; 
+            min-width: 300px; /* Les cartes ont une largeur minimale fixée, elles ne se réduisent pas! */
         }
         .feature-card i {
             font-size: 3em;
@@ -147,6 +167,9 @@
             color: var(--color-primary);
         }
 
+        /* ---------------------------------- */
+        /* 6. FOOTER */
+        /* ---------------------------------- */
         .footer {
             background-color: var(--color-primary);
             color: var(--color-white);
@@ -157,76 +180,6 @@
             margin: 0;
             font-size: 0.9em;
         }
-
-        /* ========================================================== */
-        /* !!! DÉBUT DU BLOC MEDIA QUERIES (MIS EN COMMENTAIRE) !!! */
-        /* Décommenter cette section pour activer la magie du Responsive Design */
-        /* ========================================================== */
-        /* <!-- */
-        @media (max-width: 768px) {
-            
-            /* 1. NAVIGATION MOBILE */
-            .nav-container {
-                padding: 15px 20px;
-            }
-            .nav-links {
-                display: none; /* Cache la navigation par défaut */
-                flex-direction: column;
-                position: absolute;
-                top: 60px; /* Sous le header */
-                left: 0;
-                width: 100%;
-                background-color: var(--color-white);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border-top: 1px solid #eee;
-                z-index: 999;
-            }
-            /* Classe ajoutée par JS pour afficher le menu */
-            .nav-links.active {
-                display: flex; 
-            }
-            .nav-links li {
-                text-align: center;
-                padding: 10px 0;
-                border-bottom: 1px solid #f0f0f0;
-            }
-            .nav-links a {
-                margin: 0;
-                display: block;
-                padding: 10px 20px;
-            }
-            .menu-toggle {
-                display: block; /* Affiche l'icône du menu */
-            }
-
-            /* 2. HERO MOBILE */
-            .hero {
-                padding: 80px 20px 60px;
-            }
-            .hero h1 {
-                font-size: 2.5em; /* Réduction de la taille du titre */
-            }
-            .hero p {
-                font-size: 1em;
-            }
-
-            /* 3. GRILLE DE CARACTÉRISTIQUES (Passage en colonnes) */
-            .features-grid {
-                flex-direction: column; /* Les cartes passent les unes sous les autres */
-            }
-            .feature-card {
-                margin-bottom: 20px;
-            }
-
-            /* 4. ESPACEMENT GLOBAL */
-            section {
-                padding: 60px 20px;
-            }
-        }
-        /*-->*/
-        /* ========================================================== */
-        /* !!! FIN DU BLOC MEDIA QUERIES (MIS EN COMMENTAIRE) !!! */
-        /* ========================================================== */
         
     </style>
 </head>
@@ -235,7 +188,7 @@
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
-            <div class="logo">Projet Cool.</div>
+            <div class="logo">Projet Non-Responsive.</div>
             
             <!-- Lien de navigation -->
             <ul class="nav-links" id="navMenu">
@@ -245,7 +198,7 @@
                 <li><a href="#" class="btn-primary" style="padding: 8px 15px;">Démarrer</a></li>
             </ul>
             
-            <!-- Bouton burger (affiché uniquement sur mobile par les Media Queries) -->
+            <!-- Bouton burger (Ne fonctionne pas sans Media Queries) -->
             <div class="menu-toggle" id="menuToggle">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -313,16 +266,6 @@
             });
         });
 
-        // Fonction pour vérifier l'état des Media Queries (désactivée par les commentaires)
-        function checkResponsiveState() {
-            const mqBlock = document.querySelector('style').textContent;
-            if (mqBlock.includes('/* ========================================================== */')) {
-                console.log("Media Queries sont actuellement commentées. Le site est non-responsive.");
-                console.log("Veuillez décommenter le bloc '!!! DÉBUT DU BLOC MEDIA QUERIES' dans le CSS pour activer la réactivité.");
-            }
-        }
-        
-        window.onload = checkResponsiveState;
     </script>
 </body>
 </html>
